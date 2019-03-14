@@ -3,10 +3,10 @@
 {% block content %}
 {% if user.is_authenticated %}
 
-<h3><span class="badge badge-danger">Watched Posts - Current Watch Word: {{ watch }}</span></h3>
+<h3><span class="badge badge-danger">Watched Posts</span></h3>
 
     {% for post in posts %}
-
+      {% if WatchWord.word == post.content and post.private == False %}
       <article class="media content-section">
         <div class="media-body">
           <div class="article-metadata">
@@ -17,7 +17,7 @@
           <p class="article-content">{{ post.content }}</p>
         </div>
       </article>
-
+      {% endif %}
     {% endfor %}
 
 {% else %}
