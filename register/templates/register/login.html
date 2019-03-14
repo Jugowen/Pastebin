@@ -12,7 +12,8 @@
         </fieldset>
 
         <div class="form-group">
-          <button class="btn btn-outlint-info" type="submit">Login</button>
+          <button class="btn btn-outline-secondary mt-2" type="submit">Login</button>
+          <button onclick="window.location.href = '{% url 'password_reset' %}';" type="button" class="btn btn-outline-secondary mt-2">Forgot Password?</button>
         </div>
       </form>
 
