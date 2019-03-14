@@ -1,0 +1,22 @@
+{% extends "post/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <div class="content-section">
+    <form method="post">
+
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Set Watch Words</legend>
+        {{ form|crispy }}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outlint-info" type="submit">Set Word</button>
+      </div>
+
+    </form>
+    <button onclick="window.location.href = '{% url 'post-watch' %}';" type="button" class="btn btn-outline-secondary mt-2">Search Watch Word</button>
+  </div>
+
+{% endblock %}

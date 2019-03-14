@@ -2,9 +2,11 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<h3><span class="badge badge-danger">Watched Posts</span></h3>
+
+<h3><span class="badge badge-danger">Watched Posts - Current Watch Word: {{ watch }}</span></h3>
+
     {% for post in posts %}
-      {% if post.content == User.watch %}
+
       <article class="media content-section">
         <div class="media-body">
           <div class="article-metadata">
@@ -15,9 +17,9 @@
           <p class="article-content">{{ post.content }}</p>
         </div>
       </article>
-      {% endif %}
+
     {% endfor %}
-    
+
 {% else %}
   <div class="alert alert-info" role="alert">
     <strong>Welcome!</strong> Please create an account to create posts and more.
