@@ -1,0 +1,27 @@
+{% extends "post/base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h3><span class="badge badge-light">Public Posts</span></h3>
+    {% for post in posts %}
+      {% if post.private == False %}
+      <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author }}</a>
+            <small class="text-muted">{{ post.date_posted }}</small>
+          </div>
+          <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+      </article>
+      {% endif %}
+    {% endfor %}
+{% else %}
+  <div class="alert alert-info" role="alert">
+    <strong>Welcome!</strong> Please create an account to create posts and more.
+    Select "Login" to login to an existing account or "Register" to create a new
+    account. See the top right of the navbar.
+  </div>
+{% endif %}
+{% endblock %}
