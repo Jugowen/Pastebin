@@ -1,10 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, WatchWord
+from .models import Post
 from .forms import PostForm, WatchForm
+from django.contrib import messages
 
 # Create your views here.
+
+def WatchCreateView(request):
+    form = WatchForm(request.POST, instance=request.user)
+    if form.is_valid():
+        form.save()
+        watch = form.cleaned_data.get('watch')
+        messages.success(request, f'Watch Word set to "{watch}"')
+        return redirect('post-watch')
+    context = {'form':form}
+    return render(request, "post/set-watch.html", context)
+
 
 def home(request):
     context = {
@@ -58,12 +70,3 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
-
-# Create a New Post
-class WatchCreateView(CreateView):
-    model = WatchWord
-    form_class = WatchForm
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
