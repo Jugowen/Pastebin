@@ -2,9 +2,12 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+
 <h3><span class="badge badge-light">Public Posts</span></h3>
+    
     {% for post in posts %}
-      {% if post.private == False %}
+      
+      {% if post.private == False and forloop.counter <= 11 %}
       <article class="media content-section">
         <div class="media-body">
           <div class="article-metadata">
@@ -12,16 +15,11 @@
             <small class="text-muted">{{ post.date_posted }}</small>
           </div>
           <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-          <p class="article-content">{{ post.content }}</p>
+                    <p class="article-content">{{ post.content }}</p>
         </div>
       </article>
       {% endif %}
     {% endfor %}
-    <footer class="footer">
-      <div class="container">
-        <a class="text-muted" href="../admin">Access Admin Portal</a>
-      </div>
-    </footer>
 {% else %}
   <div class="alert alert-info" role="alert">
     <strong>Welcome!</strong> Please create an account to create posts and more.
